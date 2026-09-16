@@ -1,0 +1,46 @@
+:root {
+  --content-width: 1120px;
+  --status-green: #168a4c;
+}
+
+html[data-theme="dark"] {
+  --status-green: #63d98b;
+}
+
+.statement,
+.experience,
+.capabilities,
+.education {
+  width: 100%;
+  max-width: none;
+  padding-left: max(24px, calc((100% - var(--content-width)) / 2));
+  padding-right: max(24px, calc((100% - var(--content-width)) / 2));
+}
+
+.statement,
+.education {
+  grid-template-columns: 160px minmax(0, 1fr);
+}
+
+.hero-topline span:first-child {
+  color: var(--status-green);
+}
+
+.hero-topline span:first-child:before {
+  background: var(--status-green);
+}
+
+@media (max-width: 720px) {
+  .statement,
+  .education {
+    display: block;
+  }
+
+  .statement,
+  .experience,
+  .capabilities,
+  .education {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

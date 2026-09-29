@@ -1,79 +1,94 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfólio de Guilherme Bugliani, desenvolvedor Full Stack." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#080808" />
+    <meta name="description" content="Guilherme Bugliani" />
     <title>Guilherme Bugliani</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="layout-overrides.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="monogram" href="#top" aria-label="Início">GB<span>.</span></a>
-      <nav aria-label="Navegação principal">
-        <a href="#trajetoria">Trajetória</a>
-        <a href="#expertise">Expertise</a>
+    <div class="ambient-field" aria-hidden="true">
+      <span class="ambient-trace ambient-trace--one"></span>
+      <span class="ambient-trace ambient-trace--two"></span>
+      <span class="ambient-trace ambient-trace--three"></span>
+      <span class="ambient-trace ambient-trace--four"></span>
+    </div>
+    <div class="frame" aria-hidden="true"></div>
+
+    <header class="identity">
+      <a class="name" href="#home" aria-label="Guilherme Bugliani — Home">Guilherme<br />Bugliani</a>
+      <p>Developer</p>
+      <nav class="navigation" aria-label="Navegação principal">
+        <a href="#home" data-section="home" class="active" aria-current="page"><span class="nav-dot"></span>Início</a>
+        <a href="#projects" data-section="projects"><span class="nav-dot"></span>Projetos</a>
+        <a href="#info" data-section="info"><span class="nav-dot"></span>Informações</a>
+        <a href="#contact" data-section="contact"><span class="nav-dot"></span>Contato</a>
+        <a href="#faq" data-section="faq"><span class="nav-dot"></span>FAQ</a>
       </nav>
-      <div class="header-actions"><button class="theme-toggle" type="button" aria-label="Alternar tema" title="Alternar tema"><span class="theme-icon">◐</span><span class="theme-label">Tema</span></button><a class="header-contact" href="mailto:guilhermebugliani.dev@gmail.com">Contato <span>↗</span></a></div>
     </header>
 
-    <main id="top">
-      <section class="hero">
-        <div class="hero-topline reveal"><span>Online</span><span>São Paulo, BR</span></div>
-        <p class="eyebrow reveal">Desenvolvedor Full Stack</p>
-        <h1 class="reveal"><em>Guilherme Bugliani</em></h1>
-        <h1 class="reveal">Eu construo o que<br />você precisar</h1>
-        <div class="hero-foot reveal">
-        </div>
-        <div class="hero-rule"></div>
-        <div class="ticker" aria-label="Principais tecnologias"><span>React</span><i>/</i><span>.NET &amp; C#</span><i>/</i><span>Angular</span><i>/</i><span>Python</span><i>/</i><span>SQL</span></div>
-      </section>
-
-      <section class="statement reveal">
-        <p class="section-number">01 — SOBRE</p>
-        <div>
-          <h2><span>Desenvolvedor Full Stack</span></h2><p>com experiência em aplicações web com React e Angular, APIs REST e microsserviços com
-          .NET/C# e Node.js, mensageria e bancos de dados relacionais. Atuação no ciclo completo de desenvolvimento em ambientes
-          corporativos, participando de decisões arquiteturais, revisões de código e orientação técnica de desenvolvedores,
-          com foco em integração entre sistemas, qualidade, escalabilidade e performance. Utilizo ferramentas de IA aplicadas ao
-          desenvolvimento para apoiar implementação, depuração, refatoração e revisão de código.</p>
+    <main id="content" aria-live="polite">
+      <section class="page active" id="home" aria-labelledby="home-title">
+        <div class="home-copy page-copy">
+          <h1 id="home-title">Construo o que <br />você precisar</h1>
+          <p>Sou Guilherme, desenvolvedor Full Stack que transforma ideias em soluções práticas e eficientes.</p>
+          <a class="text-link" href="#projects">Conheça meu trabalho <span>↗</span></a>
         </div>
       </section>
 
-      <section class="experience" id="trajetoria">
-        <div class="section-heading reveal"><p class="section-number">02 — TRAJETÓRIA</p></div>
-        <ol class="timeline">
-          <li class="reveal"><div class="timeline-meta"><span>2024 — 2026</span><span>Osasco, SP</span></div><div class="timeline-main"><h3>Bradesco</h3><p>Engenheiro de Dados</p></div><p class="timeline-copy">Serviços backend em C# e automações com Python para melhorar performance, estabilidade e disponibilidade de dados em aplicações de alta demanda.</p><span class="index">01</span></li>
-          <li class="reveal"><div class="timeline-meta"><span>2023 — 2024</span><span>São Paulo, SP</span></div><div class="timeline-main"><h3>Refit</h3><p>Desenvolvedor Full Stack</p></div><p class="timeline-copy">Evolução de produto web e arquitetura de integrações com React, Angular, .NET, mensageria, Docker e pipelines de entrega contínua.</p><span class="index">02</span></li>
-          <li class="reveal"><div class="timeline-meta"><span>2021 — 2023</span><span>São Paulo, SP</span></div><div class="timeline-main"><h3>G3 Engenharia</h3><p>Desenvolvedor de Sistemas</p></div><p class="timeline-copy">Modernização de sistemas e APIs distribuídas, conectando módulos e processos internos com foco em estabilidade operacional.</p><span class="index">03</span></li>
-        </ol>
-      </section>
-
-      <section class="capabilities" id="expertise">
-        <div class="capabilities-intro reveal"><p class="section-number">03 — EXPERTISE</p></div>
-        <div class="skill-grid">
-          <article class="skill-card reveal"><span>01</span><h3>Frontend</h3><p>React, Angular, TypeScript, design de interfaces responsivas e componentes que permanecem coerentes à medida que o produto evolui.</p></article>
-          <article class="skill-card dark reveal"><span>02</span><h3>Backend</h3><p>.NET / C#, Node.js, Java, APIs REST, autenticação e microsserviços projetados para integração sem atrito.</p></article>
-          <article class="skill-card accent reveal"><span>03</span><h3>Banco de Dados</h3><p>SQL Server, PostgreSQL, MySQL e Python para transformar grandes volumes de dados em respostas rápidas e confiáveis.</p></article>
-          <article class="skill-card reveal"><span>04</span><h3>Devops</h3><p>Docker, CI/CD, Azure, Cloudflare, Vercel, observabilidade e troubleshooting de produção para deixar o deploy previsível.</p></article>
+      <section class="page" id="projects" aria-labelledby="projects-title" hidden>
+        <div class="page-copy projects-copy">
+          <a class="project" href="mailto:guilhermebugliani.dev@gmail.com?subject=Projeto%20Bradesco">
+            <span class="project-title">Plataforma de dados</span><span class="project-meta">Engenharia de dados <i>·</i> Backend, automação</span><span class="project-arrow">↗</span>
+          </a>
+          <a class="project" href="mailto:guilhermebugliani.dev@gmail.com?subject=Projeto%20Refit">
+            <span class="project-title">Produto web &amp; integrações</span><span class="project-meta">Produto digital <i>·</i> Full Stack</span><span class="project-arrow">↗</span>
+          </a>
+          <a class="project" href="mailto:guilhermebugliani.dev@gmail.com?subject=Projeto%20G3%20Engenharia">
+            <span class="project-title">Sistemas conectados</span><span class="project-meta">Sistemas internos <i>·</i> APIs, modernização</span><span class="project-arrow">↗</span>
+          </a>
         </div>
       </section>
 
-      <section class="education reveal"><p class="section-number">04 — FORMAÇÃO</p><div class="education-list"><div><p>2022 — 2026</p><h3>Engenharia da Computação</h3><span>Universidade São Judas Tadeu</span></div><div><p>2020 — 2021</p><h3>Análise e Desenvolvimento de Sistemas</h3><span>ETEC de São Paulo</span></div></div></section>
+      <section class="page" id="info" aria-labelledby="info-title" hidden>
+        <div class="page-copy info-copy">
+          <p>Sou desenvolvedor Full Stack e trabalho entre interfaces, serviços e dados. Gosto de transformar problemas complexos em experiências diretas, mantendo cuidado tanto com o que as pessoas veem quanto com o que sustenta o produto.</p>
+          <div class="info-columns">
+            <div><h3>Faço</h3><p>Interfaces · APIs<br />Integrações · Automação<br />Sistemas web</p></div>
+            <div><h3>Uso</h3><p>React · Angular · TypeScript<br />.NET · C# · Node.js<br />Python · SQL · Docker</p></div>
+          </div>
+        </div>
+      </section>
 
-      <section class="closing">
-        <p class="eyebrow reveal">O próximo sistema pode ser o seu</p>
-        <h2 class="reveal">Vamos criar algo?<br /></h2>
-        <a class="contact-email reveal" href="mailto:guilhermebugliani.dev@gmail.com">guilhermebugliani.dev@gmail.com <span>↗</span></a>
-        <div class="closing-footer"><a href="https://linkedin.com/in/guilhermebugliani" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/GBugliani" target="_blank" rel="noreferrer">GitHub ↗</a><span>© 2026 Guilherme Bugliani</span></div>
+      <section class="page" id="contact" aria-labelledby="contact-title" hidden>
+        <div class="page-copy contact-copy">
+          <h2 id="contact-title">Uma boa ideia<br />começa por aqui</h2>
+          <a class="email-link" href="mailto:guilhermebugliani.dev@gmail.com">guilhermebugliani.dev@gmail.com <span>↗</span></a>
+          <div class="social-links"><a href="https://linkedin.com/in/guilhermebugliani" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/GBugliani" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+        </div>
+      </section>
+
+      <section class="page" id="faq" aria-labelledby="faq-title" hidden>
+        <div class="page-copy faq-copy">
+
+          <article><h2>Que tipo de projeto você faz?</h2><p>Produtos web, interfaces, APIs, integrações e automações. <a href="#projects">Veja alguns trabalhos.</a></p></article>
+          <article><h2>Você trabalha com equipes?</h2><p>Sim. Tenho experiência colaborando com times de produto e engenharia, em ambientes corporativos e multidisciplinares.</p></article>
+          <article><h2>Como podemos conversar?</h2><p>Escreva para <a href="mailto:guilhermebugliani.dev@gmail.com">guilhermebugliani.dev@gmail.com</a> ou encontre-me no <a href="https://linkedin.com/in/guilhermebugliani" target="_blank" rel="noreferrer">LinkedIn</a>.</p></article>
+        </div>
       </section>
     </main>
+
+    <aside class="preferences" aria-label="Preferências visuais">
+      <div class="preference-group"><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="true">Dark</button></div>
+    </aside>
+    <footer class="page-footer"><span>São Paulo, Brasil <i>·</i> UTC−3</span></footer>
+
     <script src="script.js"></script>
   </body>
 </html>

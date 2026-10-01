@@ -8,6 +8,30 @@
   let transitionId = 0;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  document.querySelectorAll(".code-backdrop__text code").forEach((element) => {
+    const fullText = element.textContent.trim();
+    if (reducedMotion) {
+      element.textContent = fullText;
+      return;
+    }
+
+    element.textContent = "";
+    const typeCode = async () => {
+      while (true) {
+        for (let index = 1; index <= fullText.length; index += 1) {
+          element.textContent = fullText.slice(0, index);
+          await new Promise((resolve) => setTimeout(resolve, 22));
+        }
+        await new Promise((resolve) => setTimeout(resolve, 900));
+        for (let index = fullText.length - 1; index >= 0; index -= 1) {
+          element.textContent = fullText.slice(0, index);
+          await new Promise((resolve) => setTimeout(resolve, 7));
+        }
+      }
+    };
+    typeCode();
+  });
+
   if (!reducedMotion) {
     let pointerFrame = 0;
     window.addEventListener("pointermove", (event) => {
@@ -37,6 +61,7 @@
 
     const previousPage = pages.find((page) => page.id === currentSection);
     const token = ++transitionId;
+    if (sectionId === "projects") nextPage.querySelector(".projects-copy")?.scrollTo({ top: 0 });
     currentSection = sectionId;
     navLinks.forEach((link) => {
       const active = link.dataset.section === sectionId;

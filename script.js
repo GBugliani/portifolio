@@ -51,7 +51,7 @@
     document.querySelectorAll("[data-theme-choice]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.themeChoice === theme));
     });
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "light" ? "#e5e5e5" : "#080808");
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "light" ? "#e5e5e5" : "#000000");
     if (persist) localStorage.setItem("portfolio-theme", theme);
   }
 

@@ -4,9 +4,25 @@
   const root = document.documentElement;
   const pages = [...document.querySelectorAll(".page")];
   const navLinks = [...document.querySelectorAll(".navigation a")];
+  const projectsList = document.querySelector(".projects-copy");
+  const scrollHint = document.querySelector(".projects-scroll-hint");
+  const scrollHintLabel = scrollHint?.querySelector("[data-scroll-hint-label]");
+  const scrollHintArrow = scrollHint?.querySelector("[data-scroll-hint-arrow]");
   let currentSection = location.hash.slice(1) || "home";
   let transitionId = 0;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function updateProjectsScrollHint() {
+    if (!projectsList || !scrollHint) return;
+    const canScroll = projectsList.scrollHeight > projectsList.clientHeight + 2;
+    const atEnd = projectsList.scrollTop + projectsList.clientHeight >= projectsList.scrollHeight - 2;
+    scrollHint.hidden = !canScroll;
+    if (scrollHintLabel) scrollHintLabel.textContent = atEnd ? "Fim da lista" : "Role para ver mais";
+    if (scrollHintArrow) scrollHintArrow.textContent = atEnd ? "↑" : "↓";
+  }
+
+  projectsList?.addEventListener("scroll", updateProjectsScrollHint, { passive: true });
+  window.addEventListener("resize", updateProjectsScrollHint, { passive: true });
 
   document.querySelectorAll(".code-backdrop__text code").forEach((element) => {
     const fullText = element.textContent.trim();
@@ -85,6 +101,8 @@
       page.hidden = !active;
       page.classList.toggle("active", active);
     });
+    if (sectionId === "projects") updateProjectsScrollHint();
+    nextPage.focus({ preventScroll: true });
     const incoming = nextPage.querySelector(".page-copy");
     if (incoming && !reducedMotion) {
       await incoming.animate(
@@ -128,5 +146,6 @@
       if (active) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
     });
+    if (initialPage.id === "projects") updateProjectsScrollHint();
   }
 })();

@@ -8,9 +8,30 @@
   const scrollHint = document.querySelector(".projects-scroll-hint");
   const scrollHintLabel = scrollHint?.querySelector("[data-scroll-hint-label]");
   const scrollHintArrow = scrollHint?.querySelector("[data-scroll-hint-arrow]");
+  const siteLoader = document.querySelector(".site-loader");
+  const loaderStartedAt = performance.now();
   let currentSection = location.hash.slice(1) || "home";
   let transitionId = 0;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function dismissLoader() {
+    if (!siteLoader || siteLoader.classList.contains("is-leaving")) return;
+    const minimumDisplayTime = reducedMotion ? 0 : 2400;
+    const waitForMinimum = Math.max(0, minimumDisplayTime - (performance.now() - loaderStartedAt));
+    window.setTimeout(() => {
+      if (!siteLoader.isConnected || siteLoader.classList.contains("is-leaving")) return;
+      siteLoader.classList.add("is-leaving");
+      window.setTimeout(() => {
+        siteLoader.remove();
+        root.classList.remove("has-loader");
+      }, reducedMotion ? 0 : 950);
+    }, waitForMinimum);
+  }
+
+  if (siteLoader) {
+    if (document.readyState === "complete") dismissLoader();
+    else window.addEventListener("load", dismissLoader, { once: true });
+  }
 
   function updateProjectsScrollHint() {
     if (!projectsList || !scrollHint) return;

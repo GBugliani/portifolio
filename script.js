@@ -6,8 +6,6 @@
   const navLinks = [...document.querySelectorAll(".navigation a")];
   const projectsList = document.querySelector(".projects-copy");
   const scrollHint = document.querySelector(".projects-scroll-hint");
-  const scrollHintLabel = scrollHint?.querySelector("[data-scroll-hint-label]");
-  const scrollHintArrow = scrollHint?.querySelector("[data-scroll-hint-arrow]");
   const siteLoader = document.querySelector(".site-loader");
   const loaderStartedAt = performance.now();
   let currentSection = location.hash.slice(1) || "home";
@@ -34,12 +32,13 @@
   }
 
   function updateProjectsScrollHint() {
-    if (!projectsList || !scrollHint) return;
+    if (!projectsList) return;
     const canScroll = projectsList.scrollHeight > projectsList.clientHeight + 2;
-    const atEnd = projectsList.scrollTop + projectsList.clientHeight >= projectsList.scrollHeight - 2;
-    scrollHint.hidden = !canScroll;
-    if (scrollHintLabel) scrollHintLabel.textContent = atEnd ? "Fim da lista" : "Role para ver mais";
-    if (scrollHintArrow) scrollHintArrow.textContent = atEnd ? "↑" : "↓";
+    const hasItemsAbove = projectsList.scrollTop > 2;
+    const hasItemsBelow = projectsList.scrollTop + projectsList.clientHeight < projectsList.scrollHeight - 2;
+    projectsList.classList.toggle("has-items-above", canScroll && hasItemsAbove);
+    projectsList.classList.toggle("has-items-below", canScroll && hasItemsBelow);
+    if (scrollHint) scrollHint.hidden = !canScroll || hasItemsAbove;
   }
 
   projectsList?.addEventListener("scroll", updateProjectsScrollHint, { passive: true });
@@ -85,8 +84,10 @@
 
   function setTheme(theme, persist = true) {
     root.dataset.theme = theme;
-    document.querySelectorAll("[data-theme-choice]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.themeChoice === theme));
+    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+      const label = theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro";
+      button.setAttribute("aria-label", label);
+      button.title = label;
     });
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "light" ? "#e5e5e5" : "#000000");
     if (persist) localStorage.setItem("portfolio-theme", theme);
@@ -149,8 +150,8 @@
 
   const savedTheme = localStorage.getItem("portfolio-theme");
   setTheme(savedTheme === "light" ? "light" : "dark", false);
-  document.querySelectorAll("[data-theme-choice]").forEach((button) => {
-    button.addEventListener("click", () => setTheme(button.dataset.themeChoice));
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => setTheme(root.dataset.theme === "dark" ? "light" : "dark"));
   });
 
   const initialPage = pages.find((page) => page.id === currentSection) || pages.find((page) => page.id === "home");

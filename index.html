@@ -2,7 +2,7 @@
 <html lang="pt-BR" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Guilherme Bugliani" />
     <title>Guilherme Bugliani</title>
@@ -101,7 +101,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         <a href="#projects" data-section="projects"><span class="nav-dot"></span>Projetos</a>
         <a href="#info" data-section="info"><span class="nav-dot"></span>Informações</a>
         <a href="#contact" data-section="contact"><span class="nav-dot"></span>Contato</a>
-        <a href="#faq" data-section="faq"><span class="nav-dot"></span>FAQ</a>
       </nav>
     </header>
 
@@ -128,7 +127,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <a class="project" href="https://github.com/GBugliani/url-monitor" target="_blank" rel="noopener noreferrer"><span class="project-number">10</span><span class="project-heading"><span class="project-title">URL Monitor</span><span class="project-description">Monitoramento de disponibilidade de URLs</span></span><span class="project-technologies"><span class="technology"><svg class="technology-logo technology-logo--go" aria-hidden="true"><use href="#logo-go" /></svg><span>Go</span></span></span><span class="project-arrow" aria-hidden="true">↗</span></a>
           <a class="project" href="https://github.com/GBugliani/webcrawler" target="_blank" rel="noopener noreferrer"><span class="project-number">11</span><span class="project-heading"><span class="project-title">Web Crawler</span><span class="project-description">Coleta automatizada de conteúdo web</span></span><span class="project-technologies"><span class="technology"><svg class="technology-logo technology-logo--python" aria-hidden="true"><use href="#logo-python" /></svg><span>Python</span></span></span><span class="project-arrow" aria-hidden="true">↗</span></a>
         </div>
-        <p class="projects-scroll-hint" aria-hidden="true"><span data-scroll-hint-label>Role para ver mais</span><span data-scroll-hint-arrow>↓</span></p>
+        <div class="projects-scroll-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div>
       </section>
       <section class="page" id="info" aria-labelledby="info-title" tabindex="-1" hidden>
         <div class="page-copy info-copy">
@@ -150,20 +149,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
       </section>
 
-      <section class="page" id="faq" aria-label="Perguntas frequentes" tabindex="-1" hidden>
-        <div class="page-copy faq-copy">
-
-          <article><h2>Que tipo de projeto você faz?</h2><p>Produtos web, interfaces, APIs, integrações e automações. <a href="#projects">Veja alguns trabalhos.</a></p></article>
-          <article><h2>Você trabalha com equipes?</h2><p>Sim. Tenho experiência colaborando com times de produto e engenharia, em ambientes corporativos e multidisciplinares.</p></article>
-          <article><h2>Como podemos conversar?</h2><p>Escreva para <a href="mailto:guilhermebugliani.dev@gmail.com">guilhermebugliani.dev@gmail.com</a> ou encontre-me no <a href="https://linkedin.com/in/guilhermebugliani" target="_blank" rel="noreferrer">LinkedIn</a>.</p></article>
-        </div>
-      </section>
     </main>
 
     <aside class="preferences" aria-label="Preferências visuais">
-      <div class="preference-group"><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="true">Dark</button></div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Ativar tema claro" title="Ativar tema claro">
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg>
+      </button>
     </aside>
-    <footer class="page-footer"><span>São Paulo, Brasil <i>·</i> UTC−3</span></footer>
 
     <script src="script.js"></script>
   </body>

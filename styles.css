@@ -55,7 +55,7 @@ main { position: relative; z-index: 1; min-height: 100svh; }
 .page-copy { position: absolute; right: clamp(40px, 10vw, 145px); bottom: clamp(90px, 15vh, 150px); width: min(540px, 52vw); text-align: right; }
 .overline { margin: 0 0 23px; color: var(--muted); font: 13px/1.5 var(--mono); letter-spacing: .03em; }
 .overline span { padding: 0 5px; }
-.home-copy h1, .info-copy h2, .contact-copy h2 { margin: 0; font-size: clamp(36px, 4.9vw, 68px); line-height: 1.02; letter-spacing: -.065em; font-weight: 400; }
+.home-copy :is(h1, h2), .info-copy :is(h1, h2), .contact-copy :is(h1, h2) { margin: 0; font-size: clamp(36px, 4.9vw, 68px); line-height: 1.02; letter-spacing: -.065em; font-weight: 400; }
 .home-copy > p:not(.overline), .info-copy > p:not(.overline) { max-width: 410px; margin: 20px 0 0 auto; font-size: 16px; font-weight: 600; line-height: 1.8; }
 .text-link { display: inline-flex; gap: 14px; margin-top: 25px; font: 12px var(--mono); border-bottom: 1px solid var(--line); padding-bottom: 5px; }
 .text-link span { transition: transform .2s; }.text-link:hover span { transform: translate(2px,-2px); }
@@ -97,7 +97,7 @@ main { position: relative; z-index: 1; min-height: 100svh; }
   85% { transform: translateY(-3px); opacity: .65; }
 }
 .info-copy { width: min(530px, 52vw); }
-.info-copy h2, .contact-copy h2 { font-size: clamp(34px, 4.6vw, 60px); }
+.info-copy :is(h1, h2), .contact-copy :is(h1, h2) { font-size: clamp(34px, 4.6vw, 60px); }
 .info-copy > p:not(.overline) { max-width: 410px; }
 .info-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 30px; margin-top: 29px; text-align: right; }
 .info-columns h3 { margin: 0 0 8px; color: var(--muted); font: 12px var(--mono); text-transform: uppercase; }
@@ -131,7 +131,7 @@ html[data-theme="light"] .theme-icon--moon { display: block; }
   .navigation:hover a:not(:hover):not(.active) { opacity: 1; }
   .nav-dot { position: absolute; bottom: 0; left: calc(50% - 2px); width: 4px; height: 4px; }
   .page-copy, .info-copy { right: 28px; bottom: calc(108px + env(safe-area-inset-bottom, 0px)); width: calc(100% - 56px); text-align: left; }
-  .home-copy h1, .info-copy h2, .contact-copy h2 { font-size: clamp(30px, 9vw, 46px); }
+  .home-copy :is(h1, h2), .info-copy :is(h1, h2), .contact-copy :is(h1, h2) { font-size: clamp(30px, 9vw, 46px); }
   .overline { font-size: 11px; }
   .home-copy > p:not(.overline), .info-copy > p:not(.overline) { max-width: 300px; margin-left: 0; margin-right: auto; font-size: 13px; }
   #projects::after { height: 110px; height: min(110px, 10svh); }

@@ -2,15 +2,63 @@
   "use strict";
 
   const root = document.documentElement;
+  const sitePages = JSON.parse(document.querySelector("#site-pages").textContent);
+  const siteOrigin = "https://guilhermebugliani-dev.vercel.app";
+  const isLocalFile = location.protocol === "file:";
   const pages = [...document.querySelectorAll(".page")];
   const navLinks = [...document.querySelectorAll(".navigation a")];
   const projectsList = document.querySelector(".projects-copy");
   const scrollHint = document.querySelector(".projects-scroll-hint");
   const siteLoader = document.querySelector(".site-loader");
   const loaderStartedAt = performance.now();
-  let currentSection = location.hash.slice(1) || "home";
+  let currentSection = sectionFromLocation();
   let transitionId = 0;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function sectionFromLocation() {
+    const legacySection = location.hash.slice(1);
+    if (Object.hasOwn(sitePages, legacySection)) return legacySection;
+    const path = location.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "").replace(/\/$/, "") || "/";
+    return Object.keys(sitePages).find((id) => sitePages[id].path === path) || "home";
+  }
+
+  function updateBrowserHistory(sectionId, replace = false) {
+    const url = isLocalFile ? `#${sectionId}` : sitePages[sectionId].path + location.search;
+    try {
+      history[replace ? "replaceState" : "pushState"]({ section: sectionId }, "", url);
+    } catch {
+      // Restricted previews may forbid the History API; keep navigation usable.
+      location.hash = sectionId;
+    }
+  }
+
+  function updatePageMetadata(sectionId) {
+    const page = sitePages[sectionId];
+    const url = `${siteOrigin}${page.path}`;
+    document.title = page.title;
+    document.querySelector('link[rel="canonical"]').href = url;
+    for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) {
+      document.querySelector(selector).content = page.description;
+    }
+    for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]']) {
+      document.querySelector(selector).content = page.title;
+    }
+    document.querySelector('meta[property="og:url"]').content = url;
+    const element = document.querySelector("#structured-data");
+    const data = JSON.parse(element.textContent);
+    const webpage = data["@graph"].find((item) => item["@id"].endsWith("#webpage"));
+    Object.assign(webpage, { "@type": page.type, "@id": `${url}#webpage`, url, name: page.title, description: page.description });
+    element.textContent = JSON.stringify(data);
+    for (const id of Object.keys(sitePages)) {
+      const heading = document.getElementById(`${id}-title`);
+      const tag = id === sectionId ? "h1" : "h2";
+      if (!heading || heading.localName === tag) continue;
+      const replacement = document.createElement(tag);
+      for (const attribute of heading.attributes) replacement.setAttribute(attribute.name, attribute.value);
+      replacement.append(...heading.childNodes);
+      heading.replaceWith(replacement);
+    }
+  }
 
   function dismissLoader() {
     if (!siteLoader || siteLoader.classList.contains("is-leaving")) return;
@@ -107,7 +155,8 @@
       if (active) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
     });
-    if (updateHistory) history.pushState({ section: sectionId }, "", `#${sectionId}`);
+    if (updateHistory) updateBrowserHistory(sectionId);
+    updatePageMetadata(sectionId);
 
     const outgoing = previousPage?.querySelector(".page-copy");
     if (outgoing && !reducedMotion) {
@@ -134,19 +183,16 @@
     }
   }
 
-  navLinks.forEach((link) => link.addEventListener("click", (event) => {
-    event.preventDefault();
-    showSection(link.dataset.section);
-  }));
-  document.querySelector(".name")?.addEventListener("click", (event) => {
-    event.preventDefault();
-    showSection("home");
+  document.querySelectorAll("a[data-section]").forEach((link) => {
+    if (isLocalFile) link.href = `#${link.dataset.section}`;
+    link.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      showSection(link.dataset.section);
+    });
   });
-  document.querySelectorAll('[href="#projects"]').forEach((link) => link.addEventListener("click", (event) => {
-    event.preventDefault();
-    showSection("projects");
-  }));
-  window.addEventListener("popstate", () => showSection(location.hash.slice(1) || "home", false));
+  window.addEventListener("popstate", () => showSection(sectionFromLocation(), false));
+  window.addEventListener("hashchange", () => showSection(sectionFromLocation(), false));
 
   const savedTheme = localStorage.getItem("portfolio-theme");
   setTheme(savedTheme === "light" ? "light" : "dark", false);
@@ -157,6 +203,10 @@
   const initialPage = pages.find((page) => page.id === currentSection) || pages.find((page) => page.id === "home");
   if (initialPage) {
     currentSection = initialPage.id;
+    updatePageMetadata(currentSection);
+    if (!isLocalFile && Object.hasOwn(sitePages, location.hash.slice(1))) {
+      updateBrowserHistory(currentSection, true);
+    }
     pages.forEach((page) => {
       const active = page === initialPage;
       page.hidden = !active;
